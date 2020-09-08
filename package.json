@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
-    "prepare": "rimraf lib && nr build"
+    "prepare": "rimraf lib && npm run build"
   },
   "keywords": [],
   "author": {
