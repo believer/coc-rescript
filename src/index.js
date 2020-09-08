@@ -1,4 +1,4 @@
-const { LanguageClient } = require("coc.nvim");
+const { LanguageClient, services, workspace } = require("coc.nvim");
 
 exports.activate = (context) => {
   const serverOptions = {
@@ -20,4 +20,6 @@ exports.activate = (context) => {
   );
 
   context.subscriptions.push(services.registLanguageClient(languageClient));
+
+  workspace.showMessage("ReScript installed");
 };
