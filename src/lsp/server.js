@@ -279,7 +279,6 @@ let stopWatchingBsbOutputFile = (timerId) => {
   clearInterval(timerId);
 };
 process_1.default.on("message", (a) => {
-  console.log(a);
   if (a.id == null) {
     // this is a notification message, aka client sent and forgot
     let aa = a;
