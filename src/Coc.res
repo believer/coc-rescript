@@ -72,10 +72,12 @@ module Client = {
 }
 
 module LanguageClient = {
-  type t = {start: unit => unit}
+  type t 
 
   @bs.module("coc.nvim") @bs.new
   external make: (Language.t, string, Server.t, Client.t) => t = "LanguageClient"
+
+  @bs.send external start: t => unit = "start"
 }
 
 module ExtensionContext = {

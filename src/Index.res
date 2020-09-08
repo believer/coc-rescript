@@ -5,10 +5,12 @@ let activate = (context: ExtensionContext.t) => {
   let lsp = Node.Path.resolve([context.extensionPath, "src", "lsp", "server.js"])
   let documentSelector = [Document.make(~language, ())]
 
-  LanguageClient.make(
+  let client = LanguageClient.make(
     language,
     "ReScript",
     Server.make(~lsp, ()),
     Client.make(~documentSelector, ~outputChannel="rescript"),
-  ).start()
+  )
+
+  LanguageClient.start(client)
 }
