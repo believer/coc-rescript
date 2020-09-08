@@ -2,34 +2,51 @@ import {
   ExtensionContext,
   LanguageClient,
   LanguageClientOptions,
+  OutputChannel,
   ServerOptions,
-  services,
+  TransportKind,
+  Uri,
+  workspace,
 } from 'coc.nvim'
+import { resolve } from 'path'
+import { TextDocument } from 'vscode-languageserver-textdocument'
 
-export const activate = (context: ExtensionContext) => {
-  const serverOptions: ServerOptions = {
-    args: ['--node-ipc'],
-    module: context.asAbsolutePath('./src/lsp/server.js'),
+export function activate(context: ExtensionContext) {
+  const module = resolve(context.extensionPath, 'src', 'lsp', 'server.js')
+  const outputChannel: OutputChannel = workspace.createOutputChannel('rescript')
 
-    options: {},
+  async function didOpenTextDocument(document: TextDocument): Promise<void> {
+    const uri = Uri.parse(document.uri)
+
+    if (uri.scheme !== 'file') {
+      return
+    }
+
+    const serverOptions: ServerOptions = {
+      run: { module, transport: TransportKind.ipc },
+      debug: { module },
+    }
+
+    const clientOptions: LanguageClientOptions = {
+      documentSelector: [
+        { language: 'rescript', scheme: 'file', pattern: '*.{res,resi}' },
+      ],
+      diagnosticCollectionName: 'rescript',
+      outputChannel,
+      synchronize: {
+        configurationSection: 'rescript',
+      },
+    }
+
+    const client = new LanguageClient(
+      'rescript',
+      'ReScript',
+      serverOptions,
+      clientOptions
+    )
+
+    client.start()
   }
 
-  const clientOptions: LanguageClientOptions = {
-    documentSelector: [
-      { language: 'rescript', scheme: 'file', pattern: '*.{res,resi}' },
-    ],
-    synchronize: {
-      configurationSection: 'rescript',
-    },
-  }
-
-  const languageClient = new LanguageClient(
-    'rescript',
-    'ReScript',
-    serverOptions,
-    clientOptions,
-    true
-  )
-
-  context.subscriptions.push(services.registLanguageClient(languageClient))
+  workspace.onDidOpenTextDocument(didOpenTextDocument)
 }
