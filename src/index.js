@@ -3,11 +3,12 @@ const { LanguageClient } = require("coc.nvim");
 exports.activate = (context) => {
   const serverOptions = {
     module: context.asAbsolutePath("./lsp/server.js"),
+    args: ["--node-ipc"],
   };
 
   const documentSelector = [{ language: "rescript", scheme: "file" }];
   const synchronize = {
-    configurationSection: "reason_language_server",
+    configurationSection: "rescript",
   };
   const clientOptions = { documentSelector, synchronize };
 
