@@ -1,0 +1,21 @@
+{
+  "name": "coc-rescript",
+  "version": "1.0.0",
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": true
+  },
+  "suffix": ".bs.js",
+  "bs-dependencies": [],
+  "warnings": {
+    "number": "+A-4-9-40-41-42-48",
+    "error": "+A-3-4-40-42-44-102"
+  },
+  "refmt": 3
+}

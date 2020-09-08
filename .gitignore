@@ -2,3 +2,8 @@ node_modules
 
 # Build folder
 lib
+
+# ReScript
+*.bs.js
+.bsb.lock
+.merlin

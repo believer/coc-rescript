@@ -1,11 +1,13 @@
 {
   "name": "coc-rescript",
   "version": "1.0.0",
-  "description": "",
-  "main": "lib/index.js",
+  "description": "ReScript extension for coc.nvim",
+  "main": "src/Index.bs.js",
   "scripts": {
-    "build": "tsc",
-    "prepare": "rimraf lib && webpack --mode=production"
+    "clean": "bsb -clean-world",
+    "start": "BS_WATCH_CLEAR=true bsb -make-world -w",
+    "build": "bsb -make-world",
+    "prepare": "npm run build"
   },
   "activationEvents": [
     "*"
@@ -20,6 +22,7 @@
     "coc": ">= 0.0.30"
   },
   "dependencies": {
+    "bs-platform": "8.2.0",
     "coc.nvim": "0.0.77",
     "tmp": "0.2.1",
     "vscode-languageserver": "6.1.1",
@@ -28,13 +31,7 @@
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/git": "9.0.0",
-    "@types/node": "14.6.4",
-    "@types/tmp": "0.2.0",
     "prettier": "2.1.1",
-    "rimraf": "3.0.2",
-    "ts-loader": "8.0.3",
-    "typescript": "4.0.2",
-    "webpack": "4.44.1",
-    "webpack-cli": "3.3.12"
+    "rimraf": "3.0.2"
   }
 }
