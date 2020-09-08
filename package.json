@@ -1,6 +1,6 @@
 {
   "name": "coc-rescript",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "src/index.js",
   "scripts": {
@@ -11,5 +11,8 @@
     "name": "Rickard Natt och Dag",
     "email": "nattochdag@hey.com"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "coc": ">= 0.0.30"
+  }
 }
