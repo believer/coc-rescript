@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/believer/coc-rescript/compare/v1.0.0...v1.0.1) (2020-09-08)
+
+
+### Bug Fixes
+
+* refactor to rescript ([cd293b9](https://github.com/believer/coc-rescript/commit/cd293b9d2de43698d22c1cc019a440bab3e51948))
+
 # 1.0.0 (2020-09-08)
 
 
