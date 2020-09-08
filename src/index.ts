@@ -4,17 +4,18 @@ import {
   LanguageClientOptions,
   ServerOptions,
   services,
-  workspace,
 } from 'coc.nvim'
 
 export const activate = (context: ExtensionContext) => {
   const serverOptions: ServerOptions = {
     args: ['--node-ipc'],
-    module: context.asAbsolutePath('./lib/server.js'),
+    module: context.asAbsolutePath('./src/lsp/server.js'),
+
+    options: {},
   }
 
   const clientOptions: LanguageClientOptions = {
-    documentSelector: [{ language: 'rescript', scheme: 'file' }],
+    documentSelector: [{ language: 'rescript' }],
     synchronize: {
       configurationSection: 'rescript',
     },
@@ -29,6 +30,4 @@ export const activate = (context: ExtensionContext) => {
   )
 
   context.subscriptions.push(services.registLanguageClient(languageClient))
-
-  workspace.showMessage('ReScript installed')
 }

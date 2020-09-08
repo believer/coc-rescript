@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
-    "prepare": "rimraf lib && npm run build"
+    "prepare": "rimraf lib && webpack --mode=production"
   },
   "activationEvents": [
     "*"
