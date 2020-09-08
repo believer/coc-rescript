@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/believer/coc-rescript/compare/v1.0.2...v1.0.3) (2020-09-08)
+
+
+### Bug Fixes
+
+* add src to files, including them in npm package ([2a6bf08](https://github.com/believer/coc-rescript/commit/2a6bf088de3483dc1958f4ded662e65606f7b185))
+
 ## [1.0.2](https://github.com/believer/coc-rescript/compare/v1.0.1...v1.0.2) (2020-09-08)
 
 
