@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/believer/coc-rescript/compare/v1.0.1...v1.0.2) (2020-09-08)
+
+
+### Bug Fixes
+
+* update binding for LanguageClient start ([be15c0d](https://github.com/believer/coc-rescript/commit/be15c0ddfc05f10345633782344bece339e0bb47))
+
 ## [1.0.1](https://github.com/believer/coc-rescript/compare/v1.0.0...v1.0.1) (2020-09-08)
 
 
