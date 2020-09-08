@@ -9,6 +9,9 @@
     "build": "bsb -make-world",
     "prepare": "npm run build"
   },
+  "files": [
+    "src"
+  ],
   "activationEvents": [
     "*"
   ],
