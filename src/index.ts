@@ -24,7 +24,8 @@ export const activate = (context: ExtensionContext) => {
     'rescript',
     'ReScript',
     serverOptions,
-    clientOptions
+    clientOptions,
+    true
   )
 
   context.subscriptions.push(services.registLanguageClient(languageClient))
