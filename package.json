@@ -1,6 +1,6 @@
 {
   "name": "coc-rescript",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "src/index.js",
   "scripts": {},
@@ -14,7 +14,8 @@
     "coc": ">= 0.0.30"
   },
   "dependencies": {
-    "coc.nvim": "0.0.77"
+    "coc.nvim": "0.0.77",
+    "vscode-languageserver": "6.1.1"
   },
   "devDependencies": {}
 }
