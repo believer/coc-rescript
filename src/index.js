@@ -2,7 +2,7 @@ const { LanguageClient } = require("coc.nvim");
 
 exports.activate = (context) => {
   const serverOptions = {
-    module: context.asAbsolutePath("./lsp/server.js"),
+    module: context.asAbsolutePath("./src/lsp/server.js"),
     args: ["--node-ipc"],
   };
 
