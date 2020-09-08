@@ -7,6 +7,9 @@
     "build": "tsc",
     "prepare": "rimraf lib && npm run build"
   },
+  "activationEvents": [
+    "*"
+  ],
   "keywords": [],
   "author": {
     "name": "Rickard Natt och Dag",

@@ -9,15 +9,16 @@ import {
 
 export const activate = (context: ExtensionContext) => {
   const serverOptions: ServerOptions = {
-    module: context.asAbsolutePath('./lib/server.js'),
     args: ['--node-ipc'],
+    module: context.asAbsolutePath('./lib/server.js'),
   }
 
-  const documentSelector = [{ language: 'rescript', scheme: 'file' }]
-  const synchronize = {
-    configurationSection: 'rescript',
+  const clientOptions: LanguageClientOptions = {
+    documentSelector: [{ language: 'rescript', scheme: 'file' }],
+    synchronize: {
+      configurationSection: 'rescript',
+    },
   }
-  const clientOptions: LanguageClientOptions = { documentSelector, synchronize }
 
   const languageClient = new LanguageClient(
     'rescript',
