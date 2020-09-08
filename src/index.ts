@@ -15,7 +15,9 @@ export const activate = (context: ExtensionContext) => {
   }
 
   const clientOptions: LanguageClientOptions = {
-    documentSelector: [{ language: 'rescript' }],
+    documentSelector: [
+      { language: 'rescript', scheme: 'file', pattern: '*.{res,resi}' },
+    ],
     synchronize: {
       configurationSection: 'rescript',
     },
