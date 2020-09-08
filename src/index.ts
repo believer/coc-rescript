@@ -9,7 +9,7 @@ import {
 
 export const activate = (context: ExtensionContext) => {
   const serverOptions: ServerOptions = {
-    module: context.asAbsolutePath('./src/lsp/server.js'),
+    module: context.asAbsolutePath('./lib/server.js'),
     args: ['--node-ipc'],
   }
 
