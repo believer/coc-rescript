@@ -14,3 +14,11 @@ bundled the [server](https://github.com/rescript-lang/rescript-vscode/) in the p
 ```
 :CocInstall coc-rescript
 ```
+
+In order to get automatic formatting you need to add the following in your `:CocConfig`:
+
+```json
+{
+  "coc.preferences.formatOnSaveFiletypes": ["rescript"]
+}
+```
