@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/believer/coc-rescript/compare/v1.0.3...v1.1.0) (2020-09-09)
+
+
+### Features
+
+* rewrite language server in rescript ([5daadc3](https://github.com/believer/coc-rescript/commit/5daadc3aa11b166a846e8b05740e22b39c328ff0))
+
 ## [1.0.3](https://github.com/believer/coc-rescript/compare/v1.0.2...v1.0.3) (2020-09-08)
 
 
