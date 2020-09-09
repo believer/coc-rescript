@@ -2,7 +2,7 @@ open Coc
 
 let activate = (context: ExtensionContext.t) => {
   let language = #rescript
-  let lsp = Node.Path.resolve([context.extensionPath, "src", "lsp", "server.js"])
+  let lsp = Node.Path.resolve([context.extensionPath, "src", "lsp", "Server.bs.js"])
   let documentSelector = [Document.make(~language, ())]
 
   let client = LanguageClient.make(
