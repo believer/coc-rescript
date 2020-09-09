@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/believer/coc-rescript/compare/v1.2.0...v1.2.1) (2020-09-09)
+
+
+### Bug Fixes
+
+* improve highlighting of short errors ([98a8452](https://github.com/believer/coc-rescript/commit/98a845243c16070ac23e5d4ef0188d0c2cc1ef1f))
+
 # [1.2.0](https://github.com/believer/coc-rescript/compare/v1.1.0...v1.2.0) (2020-09-09)
 
 

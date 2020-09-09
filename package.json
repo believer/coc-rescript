@@ -1,6 +1,6 @@
 {
   "name": "coc-rescript",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "ReScript extension for coc.nvim",
   "main": "src/Index.bs.js",
   "scripts": {
