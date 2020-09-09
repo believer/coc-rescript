@@ -106,7 +106,7 @@ let make = (~params, ~id, ~bscPartialPath, ~contentCache) => {
                 }
 
               | Error(fileErr) => {
-                  Js.log2("Formating failed", fileErr)
+                  Js.log2("Formatting failed", fileErr)
 
                   let diagnostics = parseError(fileErr)
 

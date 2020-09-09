@@ -4,6 +4,7 @@ let parseLocation = (location) => {
     let [fromLine, fromChar] = from.split(':')
     let isSingleLine = to.includes(':')
     let [toLine, toChar] = isSingleLine ? to.split(':') : [fromLine, to]
+
     return {
       start: {
         line: parseInt(fromLine) - 1,
@@ -13,10 +14,11 @@ let parseLocation = (location) => {
     }
   } else {
     let [line, char] = location.split(':')
-    let start = { line: parseInt(line) - 1, character: parseInt(char) }
+    let end = { line: parseInt(line) - 1, character: parseInt(char) }
+
     return {
-      start: start,
-      end: start,
+      start: { ...end, character: end.character - 1 },
+      end,
     }
   }
 }
