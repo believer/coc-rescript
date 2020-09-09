@@ -95,7 +95,7 @@ Process.on("message", ({id, method, params} as message) => {
     | DidOpen => Handler.didOpen(params)
     | DidChange => Handler.didChange(params)
     | DidClose => Handler.didClose(params)
-    | Initialize | Initialized | Shutdown | Formatting | UnknownMethod => ()
+    | PublishDiagnostics | Initialize | Initialized | Shutdown | Formatting | UnknownMethod => ()
     }
   | Some(id) =>
     switch method {
@@ -103,7 +103,8 @@ Process.on("message", ({id, method, params} as message) => {
     | Initialized => JsonRpc.send(~id, ())
     | Shutdown => Handler.shutdown(id)
     | Formatting => Formatting.make(~params, ~id, ~bscPartialPath, ~contentCache)
-    | DidChange | DidOpen | Exit | DidClose | UnknownMethod => Handler.unknownMethod(id)
+    | PublishDiagnostics | DidChange | DidOpen | Exit | DidClose | UnknownMethod =>
+      Handler.unknownMethod(id)
     }
   }
 })

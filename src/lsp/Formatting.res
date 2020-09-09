@@ -1,4 +1,5 @@
 @bs.val("MAX_VALUE") @bs.scope("Number") external maxValue: int = "MAX_VALUE"
+@bs.module external parseError: string => 'a = "../parser.js"
 
 module Tmp = {
   @bs.module("tmp") external fileSync: unit => 'a = "fileSync"
@@ -93,22 +94,30 @@ let make = (~params, ~id, ~bscPartialPath, ~contentCache) => {
                     },
                   ])
 
-                  JsonRpc.make(~id, ~result, ())->Process.send
+                  JsonRpc.send(~id, ~result, ())
 
-                  let diagnostic = Some({
-                    "uri": uri,
-                    "diagnostics": [],
+                  Process.send({
+                    "method": "textDocument/publishDiagnostics",
+                    "params": {
+                      "uri": uri,
+                      "diagnostics": [],
+                    },
                   })
-
-                  JsonRpc.make(
-                    ~id,
-                    ~method=Some("textDocument/publishDiagnostics"),
-                    ~params=diagnostic,
-                    (),
-                  )->Process.send
                 }
 
-              | Error(_) => JsonRpc.make(~id, ~result=Some([]), ())->Process.send
+              | Error(fileErr) => {
+                  Js.log2("Formating failed", fileErr)
+
+                  let diagnostics = parseError(fileErr)
+
+                  Process.send({
+                    "method": "textDocument/publishDiagnostics",
+                    "params": {
+                      "uri": uri,
+                      "diagnostics": diagnostics,
+                    },
+                  })
+                }
               }
             }
           }

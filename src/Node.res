@@ -8,8 +8,7 @@ module Path = {
 
 module Fs = {
   @bs.module("fs") external existsSync: string => bool = "existsSync"
-  @bs.module("fs") external writeFileSync: (string, string, 'a) => unit =
-  "writeFileSync"
+  @bs.module("fs") external writeFileSync: (string, string, 'a) => unit = "writeFileSync"
 }
 
 module ChildProcess = {

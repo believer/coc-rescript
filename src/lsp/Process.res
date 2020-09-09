@@ -20,6 +20,7 @@ module Method = {
     | Formatting
     | Initialize
     | Initialized
+    | PublishDiagnostics
     | Shutdown
     | UnknownMethod
 
@@ -28,8 +29,9 @@ module Method = {
     | "textDocument/didChange" => DidChange
     | "textDocument/didClose" => DidClose
     | "textDocument/didOpen" => DidOpen
-    | "exit" => Exit
     | "textDocument/formatting" => Formatting
+    | "textDocument/publishDiagnostics" => PublishDiagnostics
+    | "exit" => Exit
     | "initialize" => Initialize
     | "initialized" => Initialized
     | "shutdown" => Shutdown
