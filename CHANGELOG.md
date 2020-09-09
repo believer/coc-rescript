@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/believer/coc-rescript/compare/v1.1.0...v1.2.0) (2020-09-09)
+
+
+### Features
+
+* add error highlighting when formatting fails ([9f701b6](https://github.com/believer/coc-rescript/commit/9f701b6f6cb73ed3c8365fbb8224a252f679f9fb))
+
 # [1.1.0](https://github.com/believer/coc-rescript/compare/v1.0.3...v1.1.0) (2020-09-09)
 
 
