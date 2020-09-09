@@ -6,8 +6,7 @@
 [coc.nvim](https://github.com/neoclide/coc.nvim) extension for
 [ReScript](http://rescript-lang.org/).
 
-Still early development and I've
-bundled the [server](https://github.com/rescript-lang/rescript-vscode/) in the package, but formatting works.
+The server is a rewrite of the [VS Code server](https://github.com/rescript-lang/rescript-vscode/) in ReScript. For now only formatting works.
 
 # Installation
 
