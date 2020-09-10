@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/believer/coc-rescript/compare/v1.2.1...v1.3.0) (2020-09-10)
+
+
+### Features
+
+* add error highlighting if using bs-platform master ([ffda15c](https://github.com/believer/coc-rescript/commit/ffda15c58dbd15a69a61726cb5b9a7c291ff6115))
+
 ## [1.2.1](https://github.com/believer/coc-rescript/compare/v1.2.0...v1.2.1) (2020-09-09)
 
 
