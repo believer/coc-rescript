@@ -1,31 +1,35 @@
-let parseLocation: string => 'a = %raw(
-  `
-function parseLocation (location) {
-  if (location.includes('-')) {
-    let [from, to] = location.split('-')
-    let [fromLine, fromChar] = from.split(':')
-    let isSingleLine = to.includes(':')
-    let [toLine, toChar] = isSingleLine ? to.split(':') : [fromLine, to]
+let createStart = (~line, ~character) =>
+  {
+    "line": line->int_of_string - 1,
+    "character": character->int_of_string - 1,
+  }
 
-    return {
-      start: {
-        line: parseInt(fromLine) - 1,
-        character: parseInt(fromChar) - 1,
-      },
-      end: { line: parseInt(toLine) - 1, character: parseInt(toChar) },
-    }
-  } else {
-    let [line, char] = location.split(':')
-    let end = { line: parseInt(line) - 1, character: parseInt(char) }
+let createEnd = (~line, ~character) =>
+  {
+    "line": line->int_of_string - 1,
+    "character": character->int_of_string,
+  }
 
-    return {
-      start: { ...end, character: end.character - 1 },
-      end,
-    }
+let parseLocation = location => {
+  switch location->Js.String2.match_(%re("/\d+/g")) {
+  | Some([fromLine, fromChar, toLine, toChar]) =>
+    Some({
+      "start": createStart(~line=fromLine, ~character=fromChar),
+      "end": createEnd(~line=toLine, ~character=toChar),
+    })
+  | Some([fromLine, fromChar, toChar]) =>
+    Some({
+      "start": createStart(~line=fromLine, ~character=fromChar),
+      "end": createEnd(~line=fromLine, ~character=toChar),
+    })
+  | Some([fromLine, fromChar]) =>
+    Some({
+      "start": createStart(~line=fromLine, ~character=fromChar),
+      "end": createEnd(~line=fromLine, ~character=fromChar),
+    })
+  | _ => None
   }
 }
-`
-)
 
 module Severity = {
   let warning = "Warning number"
@@ -51,8 +55,8 @@ let parse = file => {
       | line when line->Js.String2.trim->Js.String2.startsWith(Severity.syntax) =>
         errors->Js.Array2.push([])->ignore
 
-      | line when %re(`/(^ {2,}[0-9]+)|(^ {3,})/`)->Js.Re.test_(line) => ()
-      | line when line->Js.String2.startsWith("  ") =>
+      | line when %re(`/(^ {2,}[0-9]+)/`)->Js.Re.test_(line) => ()
+      | line when %re(`/^ {2,}/`)->Js.Re.test_(line) =>
         switch errors->Belt.Array.get(Belt.Array.length(errors) - 1) {
         | Some(arr) => arr->Js.Array2.push(line)->ignore
         | None => ()
@@ -71,7 +75,7 @@ let parse = file => {
     | (Some(loc), message) => {
         let uri =
           loc
-          ->Js.String2.match_(%re("/[^\s\d+:\d+(\d+(:\d+)?)?]+/"))
+          ->Js.String2.match_(%re("/[^\d:\s]+/"))
           ->Belt.Option.getWithDefault([])
           ->Belt.Array.get(0)
         let location =
@@ -91,12 +95,17 @@ let parse = file => {
             ->Belt.Array.map(msg => msg->Js.String2.trim)
             ->Js.Array2.joinWith("\n")
 
-          Some({
-            "range": range,
-            "message": message,
-            "severity": 1,
-            "source": "rescript",
-          })
+          switch range {
+          | Some(range) =>
+            Some({
+              "range": range,
+              "message": message,
+              "severity": 1,
+              "source": "rescript",
+            })
+          | _ => None
+          }
+
         | _ => None
         }
       }
