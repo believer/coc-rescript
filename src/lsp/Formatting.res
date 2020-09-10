@@ -1,5 +1,4 @@
 @bs.val("MAX_VALUE") @bs.scope("Number") external maxValue: int = "MAX_VALUE"
-@bs.module external parseError: string => 'a = "../parser.js"
 
 module Tmp = {
   @bs.module("tmp") external fileSync: unit => 'a = "fileSync"
