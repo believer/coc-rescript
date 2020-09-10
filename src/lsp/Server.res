@@ -2,8 +2,6 @@ let initialized = ref(false)
 let shutdownRequestAlreadyReceived = ref(false)
 let contentCache = Js.Dict.empty()
 
-let bscPartialPath = Node.Path.join(["node_modules", "bs-platform", Process.platform, "bsc.exe"])
-
 module Handler = {
   open Process.Params
 
@@ -23,15 +21,15 @@ module Handler = {
   }
 
   let didChange = params => {
-    let {contentChanges} = params
-    let {TextDocument.uri: uri} = getTextDocument(params)
+    let {contentChanges, _} = params
+    let {TextDocument.uri: uri, _} = getTextDocument(params)
 
     if Extension.isReScript(uri) {
       switch Belt.Array.length(contentChanges) {
       | 0 => ()
       | len =>
         switch contentChanges->Belt.Array.get(len - 1) {
-        | Some({TextDocument.text: text}) => contentCache->Js.Dict.set(uri, text)
+        | Some({TextDocument.text: text, _}) => contentCache->Js.Dict.set(uri, text)
         | None => ()
         }
       }
@@ -39,7 +37,7 @@ module Handler = {
   }
 
   let didClose = params => {
-    let {Process.Params.TextDocument.uri: uri} = Process.Params.getTextDocument(params)
+    let {Process.Params.TextDocument.uri: uri, _} = Process.Params.getTextDocument(params)
 
     Js.Dict.unsafeDeleteKey(. contentCache, uri)
   }
@@ -102,9 +100,11 @@ Process.on("message", ({id, method, params} as message) => {
     | Initialize => Handler.initialize(id)
     | Initialized => JsonRpc.send(~id, ())
     | Shutdown => Handler.shutdown(id)
-    | Formatting => Formatting.make(~params, ~id, ~bscPartialPath, ~contentCache)
+    | Formatting => Formatting.make(~params, ~id, ~contentCache)
     | PublishDiagnostics | DidChange | DidOpen | Exit | DidClose | UnknownMethod =>
       Handler.unknownMethod(id)
     }
   }
 })
+
+Watcher.start()

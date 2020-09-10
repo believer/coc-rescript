@@ -47,3 +47,4 @@ module Message = {
 @bs.module("process") external exit: int => unit = "exit"
 @bs.module("process") external send: 'a => unit = "send"
 @bs.module("process") external platform: string = "platform"
+@bs.module("process") external cwd: unit => string = "cwd"

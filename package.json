@@ -25,7 +25,7 @@
     "coc": ">= 0.0.30"
   },
   "dependencies": {
-    "bs-platform": "8.2.0",
+    "bs-platform": "git+https://github.com/rescript-lang/rescript-compiler.git#master",
     "coc.nvim": "0.0.77",
     "tmp": "0.2.1",
     "vscode-languageserver": "6.1.1",

@@ -5,6 +5,8 @@ module Tmp = {
   @bs.module("tmp") external fileSync: unit => 'a = "fileSync"
 }
 
+let bscPartialPath = Node.Path.join(["node_modules", "bs-platform", Process.platform, "bsc.exe"])
+
 let rec findDirOfFileNearFile = (fileToFind, source) => {
   open Node
 
@@ -46,8 +48,8 @@ let usingValidBscPath = (code, bscPath, isInterface) => {
   }
 }
 
-let make = (~params, ~id, ~bscPartialPath, ~contentCache) => {
-  let {Process.Params.TextDocument.uri: uri} = Process.Params.getTextDocument(params)
+let make = (~params, ~id, ~contentCache) => {
+  let {Process.Params.TextDocument.uri: uri, _} = Process.Params.getTextDocument(params)
   let filePath = uri->Js.String2.replace("file://", "")
 
   switch Extension.isReScript(uri) {
@@ -105,19 +107,7 @@ let make = (~params, ~id, ~bscPartialPath, ~contentCache) => {
                   })
                 }
 
-              | Error(fileErr) => {
-                  Js.log2("Formatting failed", fileErr)
-
-                  let diagnostics = parseError(fileErr)
-
-                  Process.send({
-                    "method": "textDocument/publishDiagnostics",
-                    "params": {
-                      "uri": uri,
-                      "diagnostics": diagnostics,
-                    },
-                  })
-                }
+              | Error(_) => ()
               }
             }
           }
