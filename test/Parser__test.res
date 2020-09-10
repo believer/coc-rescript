@@ -1,0 +1,132 @@
+open TestFramework
+open Parser
+
+describe("#parseLocation", ({test}) => {
+  test("handle locations", ({expect}) => {
+    expect.value(parseLocation("13:3-14:1")).toEqual(
+      Some({
+        "start": {"line": 12, "character": 2},
+        "end": {"line": 13, "character": 1},
+      }),
+    )
+
+    expect.value(parseLocation("13:3")).toEqual(
+      Some({
+        "start": {"line": 12, "character": 2},
+        "end": {"line": 12, "character": 3},
+      }),
+    )
+
+    expect.value(parseLocation("32:16-20")).toEqual(
+      Some({
+        "start": {"line": 31, "character": 15},
+        "end": {"line": 31, "character": 20},
+      }),
+    )
+  })
+})
+
+describe("#parse", ({test}) => {
+  let createDiagnostic = (~message, ~start, ~end) => {
+    let (startChar, startLine) = start
+    let (endChar, endLine) = end
+
+    Some({
+      "message": message,
+      "range": {
+        "end": {
+          "character": endChar,
+          "line": endLine,
+        },
+        "start": {
+          "character": startChar,
+          "line": startLine,
+        },
+      },
+      "severity": 1,
+      "source": "rescript",
+    })
+  }
+  test("handles syntax errors", ({expect}) => {
+    let error = `
+  Syntax error!
+  /coc-rescript/src/Parser.res:32:16-20
+  
+  30 │ module Severity = {
+  31 │   let warning = "Warning number
+  32 │   let error = "We've found a bug for you!"
+  33 │   let syntax = "Syntax error!"
+  34 │ }
+  
+  consecutive statements on a line must be separated by ';' or a newline
+    `
+
+    expect.value(parse(error)).toEqual((
+      "/coc-rescript/src/Parser.res",
+      [
+        createDiagnostic(
+          ~message="consecutive statements on a line must be separated by ';' or a newline",
+          ~start=(15, 31),
+          ~end=(20, 31),
+        ),
+      ],
+    ))
+  })
+
+  test("handles warnings", ({expect}) => {
+    let error = `
+  Warning number 26
+  /coc-rescript/src/Parser.res:67:9
+  
+  65 ┆ 
+  66 ┆ let diagnostics = errors->Belt.Array.map(error => {
+  67 ┆   let t = ""
+  68 ┆   let fileAndLocation = error->Belt.Array.get(0)
+  69 ┆   let message = error->Belt.Array.sliceToEnd(1)
+  
+  unused variable t.
+    `
+
+    expect.value(parse(error)).toEqual((
+      "/coc-rescript/src/Parser.res",
+      [createDiagnostic(~message="unused variable t.", ~start=(8, 66), ~end=(9, 66))],
+    ))
+  })
+
+  test("handles error", ({expect}) => {
+    let error = `
+  We've found a bug for you!
+  /coc-rescript/src/Parser.res:67:11
+  
+  65 ┆ 
+  66 ┆ let t = ""
+  67 ┆ let i = t + 1
+  68 ┆ 
+  69 ┆ let diagnostics = errors->Belt.Array.map(error => {
+  
+  This has type:
+    string
+
+  But somewhere wanted:
+    int
+
+
+  You can convert string to int with Belt.Int.fromString.
+    `
+
+    expect.value(parse(error)).toEqual((
+      "/coc-rescript/src/Parser.res",
+      [
+        createDiagnostic(
+          ~message=`This has type:
+string
+But somewhere wanted:
+int
+You can convert string to int with Belt.Int.fromString.`,
+          ~start=(10, 66),
+          ~end=(11, 66),
+        ),
+      ],
+    ))
+  })
+})

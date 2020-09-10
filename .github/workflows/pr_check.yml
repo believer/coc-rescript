@@ -26,5 +26,7 @@ jobs:
     - name: Run tests and linting
       run: |
         npm ci
+        npm run build
+        npm run test
       env:
         CI: true

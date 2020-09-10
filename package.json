@@ -7,7 +7,10 @@
     "clean": "bsb -clean-world",
     "start": "BS_WATCH_CLEAR=true bsb -make-world -w",
     "build": "bsb -make-world",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "test": "is-ci test:ci test:watch",
+    "test:ci": "jest",
+    "test:watch": "jest --watch"
   },
   "files": [
     "src"
@@ -34,7 +37,24 @@
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/git": "9.0.0",
+    "is-ci-cli": "2.1.2",
+    "jest": "26.4.2",
     "prettier": "2.1.1",
+    "reason-test-framework": "0.3.2",
     "rimraf": "3.0.2"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "roots": [
+      "test"
+    ],
+    "testMatch": [
+      "**/*__test.bs.js"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(bs-platform)/)"
+    ]
   }
 }
