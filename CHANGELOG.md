@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/believer/coc-rescript/compare/v1.3.0...v1.3.1) (2020-09-10)
+
+
+### Bug Fixes
+
+* remove reference to old parser ([34f1878](https://github.com/believer/coc-rescript/commit/34f18786ced548144cb2a459a6f3e6f52ddad5c8))
+
 # [1.3.0](https://github.com/believer/coc-rescript/compare/v1.2.1...v1.3.0) (2020-09-10)
 
 
