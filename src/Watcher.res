@@ -19,7 +19,7 @@ let start = () => {
           switch Js.String2.length(file) {
           | 0 =>
             Process.send({
-              "method": "textDocument/publishDiagnostics",
+              "method": Process.Method.toString(PublishDiagnostics),
               "params": {
                 "diagnostics": [],
               },
@@ -28,7 +28,7 @@ let start = () => {
             let (uri, diagnostics) = Parser.parse(file)
 
             Process.send({
-              "method": "textDocument/publishDiagnostics",
+              "method": Process.Method.toString(PublishDiagnostics),
               "params": {
                 "uri": uri,
                 "diagnostics": diagnostics,

@@ -3,21 +3,21 @@ open Parser
 
 describe("#parseLocation", ({test}) => {
   test("handle locations", ({expect}) => {
-    expect.value(parseLocation("13:3-14:1")).toEqual(
+    expect.value(Range.make("13:3-14:1")).toEqual(
       Some({
         "start": {"line": 12, "character": 2},
         "end": {"line": 13, "character": 1},
       }),
     )
 
-    expect.value(parseLocation("13:3")).toEqual(
+    expect.value(Range.make("13:3")).toEqual(
       Some({
         "start": {"line": 12, "character": 2},
         "end": {"line": 12, "character": 3},
       }),
     )
 
-    expect.value(parseLocation("32:16-20")).toEqual(
+    expect.value(Range.make("32:16-20")).toEqual(
       Some({
         "start": {"line": 31, "character": 15},
         "end": {"line": 31, "character": 20},
@@ -125,6 +125,62 @@ int
 You can convert string to int with Belt.Int.fromString.`,
           ~start=(10, 66),
           ~end=(11, 66),
+        ),
+      ],
+    ))
+  })
+
+  test("handles multiple errors", ({expect}) => {
+    let error = `
+  Syntax error!
+  /coc-rescript/src/Parser.res:38:16-20
+  
+  36 │ module Severity = {
+  37 │   let warning = "Warning number
+  38 │   let error = "We've found a bug for you!"
+  39 │   let syntax = "Syntax error!"
+  40 │ 
+  
+  consecutive statements on a line must be separated by ";" or a newline
+
+  Syntax error!
+  /coc-rescript/src/Parser.res:38:41
+  
+  36 │ module Severity = {
+  37 │   let warning = "Warning number
+  38 │   let error = "We've found a bug for you!"
+  39 │   let syntax = "Syntax error!"
+  40 │ 
+  
+  Did you forget a "in" here? 
+
+  Syntax error!
+  /coc-rescript/src/Parser.res:45:25
+  
+  43 │ 
+  44 │ module Regex = {
+  45 │   let filePath = %re("test")
+  46 │   let codeLocation = %re("test")
+  47 │   let codeDisplay = %re("test")
+  
+  Hmm, not sure what I should do here with this character.
+If you're trying to deref an expression, use "foo.contents" instead.
+    `
+
+    expect.value(parse(error)).toEqual((
+      "/coc-rescript/src/Parser.res",
+      [
+        createDiagnostic(
+          ~message=`consecutive statements on a line must be separated by ";" or a newline`,
+          ~start=(15, 37),
+          ~end=(20, 37),
+        ),
+        createDiagnostic(~message=`Did you forget a "in" here?`, ~start=(40, 37), ~end=(41, 37)),
+        createDiagnostic(
+          ~message=`Hmm, not sure what I should do here with this character.
+If you're trying to deref an expression, use "foo.contents" instead.`,
+          ~start=(24, 44),
+          ~end=(25, 44),
         ),
       ],
     ))

@@ -24,6 +24,20 @@ module Method = {
     | Shutdown
     | UnknownMethod
 
+  let toString = method =>
+    switch method {
+    | DidChange => "textDocument/didChange"
+    | DidClose => "textDocument/didClose"
+    | DidOpen => "textDocument/didOpen"
+    | Formatting => "textDocument/formatting"
+    | PublishDiagnostics => "textDocument/publishDiagnostics"
+    | Exit => "exit"
+    | Initialize => "initialize"
+    | Initialized => "initialized"
+    | Shutdown => "shutdown"
+    | UnknownMethod => ""
+    }
+
   let make = method =>
     switch method {
     | "textDocument/didChange" => DidChange

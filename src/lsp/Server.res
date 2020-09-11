@@ -51,39 +51,32 @@ module Handler = {
     })
 
     initialized.contents = true
-    JsonRpc.send(~id, ~result, ())
+    Rpc.Message.send(~id, ~result, ())
   }
 
   let shutdown = id => {
     switch shutdownRequestAlreadyReceived.contents {
     | true =>
-      let error = Some({
-        "code": JsonRpc.ErrorCode.make(InvalidRequest),
+      Some({
+        "code": Rpc.ErrorCode.make(InvalidRequest),
         "message": "Language server already received the shutdown request",
-      })
-
-      JsonRpc.send(~id, ~error, ())
+      })->Rpc.Error.send(~id)
     | false =>
       shutdownRequestAlreadyReceived.contents = true
 
-      JsonRpc.send(~id, ())
+      Rpc.Message.send(~id, ())
     }
   }
 
   let unknownMethod = id => {
-    let error = Some({
-      "code": JsonRpc.ErrorCode.make(InvalidRequest),
+    Some({
+      "code": Rpc.ErrorCode.make(InvalidRequest),
       "message": "Unrecognized editor request",
-    })
-
-    JsonRpc.send(~id, ~error, ())
+    })->Rpc.Error.send(~id)
   }
 }
 
-Process.on("message", ({id, method, params} as message) => {
-  // Log message to output log
-  Js.log(message)
-
+Process.on("message", ({id, method, params}) => {
   let method = Process.Method.make(method)
 
   switch Js.Nullable.toOption(id) {
@@ -98,7 +91,7 @@ Process.on("message", ({id, method, params} as message) => {
   | Some(id) =>
     switch method {
     | Initialize => Handler.initialize(id)
-    | Initialized => JsonRpc.send(~id, ())
+    | Initialized => Rpc.Message.send(~id, ())
     | Shutdown => Handler.shutdown(id)
     | Formatting => Formatting.make(~params, ~id, ~contentCache)
     | PublishDiagnostics | DidChange | DidOpen | Exit | DidClose | UnknownMethod =>

@@ -53,24 +53,20 @@ let make = (~params, ~id, ~contentCache) => {
 
   switch Extension.isReScript(uri) {
   | false =>
-    let error = Some({
-      "code": JsonRpc.ErrorCode.make(InvalidRequest),
+    Some({
+      "code": Rpc.ErrorCode.make(InvalidRequest),
       "message": "Not a .res or .resi file",
-    })
-
-    JsonRpc.make(~id, ~error, ())->Process.send
+    })->Rpc.Error.send(~id)
   | true => {
       let nodeModulesParentPath = findDirOfFileNearFile(bscPartialPath, filePath)
 
       switch nodeModulesParentPath {
       | None =>
-        let error = Some({
-          "code": JsonRpc.ErrorCode.make(InvalidRequest),
+        Some({
+          "code": Rpc.ErrorCode.make(InvalidRequest),
           "message": "Cannot find a nearby ${bscPartialPath}. It's needed for
           formatting.",
-        })
-
-        JsonRpc.make(~id, ~error, ())->Process.send
+        })->Rpc.Error.send(~id)
       | Some(path) => {
           let code = contentCache->Js.Dict.get(uri)
 
@@ -95,10 +91,10 @@ let make = (~params, ~id, ~contentCache) => {
                     },
                   ])
 
-                  JsonRpc.send(~id, ~result, ())
+                  Rpc.Message.send(~id, ~result, ())
 
                   Process.send({
-                    "method": "textDocument/publishDiagnostics",
+                    "method": Process.Method.toString(PublishDiagnostics),
                     "params": {
                       "uri": uri,
                       "diagnostics": [],
