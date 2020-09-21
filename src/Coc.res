@@ -13,11 +13,11 @@ module Transport = {
 
 module Server = {
   type run = {
-    @bs.as("module") lsp: string,
+    @as("module") lsp: string,
     transport: int,
   }
 
-  type debug = {@bs.as("module") lsp: string}
+  type debug = {@as("module") lsp: string}
 
   type t = {run: run, debug: debug}
 
@@ -35,7 +35,7 @@ module Server = {
 module OutputChannel = {
   type t
 
-  @bs.module("coc.nvim") @bs.scope("workspace") external make: string => t = "createOutputChannel"
+  @module("coc.nvim") @scope("workspace") external make: string => t = "createOutputChannel"
 }
 
 module Document = {
@@ -72,12 +72,12 @@ module Client = {
 }
 
 module LanguageClient = {
-  type t 
+  type t
 
-  @bs.module("coc.nvim") @bs.new
+  @module("coc.nvim") @new
   external make: (Language.t, string, Server.t, Client.t) => t = "LanguageClient"
 
-  @bs.send external start: t => unit = "start"
+  @send external start: t => unit = "start"
 }
 
 module ExtensionContext = {

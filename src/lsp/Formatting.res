@@ -1,10 +1,10 @@
-@bs.val("MAX_VALUE") @bs.scope("Number") external maxValue: int = "MAX_VALUE"
+@val("MAX_VALUE") @scope("Number") external maxValue: int = "MAX_VALUE"
 
 module Tmp = {
-  @bs.module("tmp") external fileSync: unit => 'a = "fileSync"
+  @module("tmp") external fileSync: unit => 'a = "fileSync"
 }
 
-let bscPartialPath = Node.Path.join(["node_modules", "bs-platform", Process.platform, "bsc.exe"])
+let bscPartialPath = Node.Path.join(["node_modules", "platform", Process.platform, "bsc.exe"])
 
 let rec findDirOfFileNearFile = (fileToFind, source) => {
   open Node

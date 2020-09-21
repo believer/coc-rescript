@@ -57,8 +57,8 @@ module Message = {
   type t = {id: Js.Nullable.t<string>, method: string, params: Params.t}
 }
 
-@bs.module("process") external on: (string, Message.t => unit) => unit = "on"
-@bs.module("process") external exit: int => unit = "exit"
-@bs.module("process") external send: 'a => unit = "send"
-@bs.module("process") external platform: string = "platform"
-@bs.module("process") external cwd: unit => string = "cwd"
+@module("process") external on: (string, Message.t => unit) => unit = "on"
+@module("process") external exit: int => unit = "exit"
+@module("process") external send: 'a => unit = "send"
+@module("process") external platform: string = "platform"
+@module("process") external cwd: unit => string = "cwd"
