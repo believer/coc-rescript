@@ -10,11 +10,7 @@ The server is a rewrite of the [VS Code server](https://github.com/rescript-lang
 ## Features
 
 - Formatting
-
-### Upcoming features
-
-- Error highlighting (This works when using the `master` version of `bs-platform`
-  which has added a compiler output log. Hopefully it'll be released soon)
+- Error highlighting (This works together with `bs-platform >= 8.3.0`)
 
 ## Installation
 
