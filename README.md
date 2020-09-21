@@ -10,7 +10,7 @@ The server is a rewrite of the [VS Code server](https://github.com/rescript-lang
 ## Features
 
 - Formatting
-- Error highlighting (This works together with `bs-platform >= 8.3.0`)
+- Error highlighting (`bs-platform >= 8.3.0`)
 
 ## Installation
 
