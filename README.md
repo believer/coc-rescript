@@ -5,11 +5,11 @@
 
 [coc.nvim](https://github.com/neoclide/coc.nvim) extension for [ReScript](http://rescript-lang.org/).
 
-The server is a rewrite of the [VS Code server](https://github.com/rescript-lang/rescript-vscode/) in ReScript.
+The server is a rewrite of the [VS Code server](https://github.com/rescript-lang/rescript-vscode/) in ReScript. 
 
 ## Features
 
-- Formatting
+- Formatting (`bs-platform >= 8.2.0`)
 - Error highlighting (`bs-platform >= 8.3.0`)
 
 ## Installation
