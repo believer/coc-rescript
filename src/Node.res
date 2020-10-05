@@ -1,6 +1,6 @@
 module Path = {
-  @module("path") @splice external join: array<string> => string = "join"
-  @module("path") @splice external resolve: array<string> => string = "resolve"
+  @module("path") @variadic external join: array<string> => string = "join"
+  @module("path") @variadic external resolve: array<string> => string = "resolve"
 
   @module("path") external extName: string => string = "extname"
   @module("path") external dirname: string => string = "dirname"
