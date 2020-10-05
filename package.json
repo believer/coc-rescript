@@ -28,6 +28,7 @@
     "coc": ">= 0.0.30"
   },
   "dependencies": {
+    "bs-platform": "8.3.0",
     "coc.nvim": "0.0.77",
     "tmp": "0.2.1",
     "vscode-languageserver": "6.1.1",
@@ -36,7 +37,6 @@
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/git": "9.0.0",
-    "bs-platform": "8.3.0",
     "is-ci-cli": "2.1.2",
     "jest": "26.4.2",
     "prettier": "2.1.1",
