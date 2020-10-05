@@ -4,7 +4,7 @@ module Tmp = {
   @module("tmp") external fileSync: unit => 'a = "fileSync"
 }
 
-let bscPartialPath = Node.Path.join(["node_modules", "platform", Process.platform, "bsc.exe"])
+let bscPartialPath = Node.Path.join(["node_modules", "bs-platform", Process.platform, "bsc.exe"])
 
 let rec findDirOfFileNearFile = (fileToFind, source) => {
   open Node
