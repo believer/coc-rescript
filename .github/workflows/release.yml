@@ -16,7 +16,7 @@ jobs:
 
     - name: Run tests and linting
       run: |
-        npm install
+        npm ci
         npm run build
         npm run test
       env:
