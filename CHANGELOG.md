@@ -1,3 +1,10 @@
+## [1.3.4](https://github.com/believer/coc-rescript/compare/v1.3.3...v1.3.4) (2020-10-05)
+
+
+### Bug Fixes
+
+* correct path to bs-platform ([d6f075b](https://github.com/believer/coc-rescript/commit/d6f075bff17e7e7b43c5610a77e431294bfb8f7d))
+
 ## [1.3.3](https://github.com/believer/coc-rescript/compare/v1.3.2...v1.3.3) (2020-10-05)
 
 
