@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/believer/coc-rescript/compare/v1.3.2...v1.3.3) (2020-10-05)
+
+
+### Bug Fixes
+
+* **deps:** re-add bs-platform as dependency ([b1368ed](https://github.com/believer/coc-rescript/commit/b1368ed07ee48cd1e36498beb6b5b863ac0a7296))
+
 ## [1.3.2](https://github.com/believer/coc-rescript/compare/v1.3.1...v1.3.2) (2020-10-05)
 
 
