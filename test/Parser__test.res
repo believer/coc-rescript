@@ -213,4 +213,10 @@ If you're trying to deref an expression, use "foo.contents" instead.`,
       ],
     ))
   })
+
+  test("handles malformed errors", ({expect}) => {
+    let error = ["  Syntax error!"]->Js.Array2.joinWith("\n")
+
+    expect.value(parse(error)).toEqual(("", []))
+  })
 })

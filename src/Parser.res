@@ -106,18 +106,22 @@ let parse = file => {
   }
 
   let diagnostics = errors->Belt.Array.map(error => {
-    switch (error->Belt.Array.get(0), error->Belt.Array.sliceToEnd(1)) {
-    | (Some(loc), message) =>
-      switch (
-        loc->Regex.getFirstFromMatch(Regex.codeLocation),
-        loc->Regex.getFirstFromMatch(Regex.filePath),
-      ) {
-      | (Some(location), Some(uri)) =>
-        uriRef.contents = uri
-        Diagnostic.make(location, message)
+    switch error->Belt.Array.length {
+    | 0 | 1 => None
+    | _ =>
+      switch (error->Belt.Array.get(0), error->Belt.Array.sliceToEnd(1)) {
+      | (Some(loc), message) =>
+        switch (
+          loc->Regex.getFirstFromMatch(Regex.codeLocation),
+          loc->Regex.getFirstFromMatch(Regex.filePath),
+        ) {
+        | (Some(location), Some(uri)) =>
+          uriRef.contents = uri
+          Diagnostic.make(location, message)
+        | _ => None
+        }
       | _ => None
       }
-    | _ => None
     }
   })->Belt.Array.keep(Belt.Option.isSome)
 
