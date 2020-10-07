@@ -76,8 +76,10 @@ module Handler = {
   }
 }
 
-Process.on("message", ({id, method, params}) => {
+Process.on("message", ({id, method, params} as message) => {
   let method = Process.Method.make(method)
+
+  Js.log(message)
 
   switch Js.Nullable.toOption(id) {
   | None =>

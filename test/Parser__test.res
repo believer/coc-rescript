@@ -185,4 +185,32 @@ If you're trying to deref an expression, use "foo.contents" instead.`,
       ],
     ))
   })
+
+  test("handles type errors", ({expect}) => {
+    let error =
+      [
+        "  Syntax error!",
+        "  /coc-rescript/src/Parser.res:80:3-6",
+        "  ",
+        "  78 │ ",
+        "  79 │ module Question = ",
+        "  80 │   type t = Question(string)",
+        "  81 │   type error<'a> = [> #QuestionTooShortError(int) | #QuestionMissingQu",
+        "       estionMarkError] as 'a",
+        "  82 │ }",
+        "  ",
+        "  `type` is a reserved keyword. Keywords need to be escaped: \\\"type\"",
+      ]->Js.Array2.joinWith("\n")
+
+    expect.value(parse(error)).toEqual((
+      "/coc-rescript/src/Parser.res",
+      [
+        createDiagnostic(
+          ~message="`type` is a reserved keyword. Keywords need to be escaped: \\\"type\"",
+          ~start=(2, 79),
+          ~end=(6, 79),
+        ),
+      ],
+    ))
+  })
 })

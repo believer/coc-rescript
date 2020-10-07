@@ -44,7 +44,7 @@ module Severity = {
 module Regex = {
   let filePath = %re("/[^\d:\s]+/")
   let codeLocation = %re("/\d+:\d+(-\d+(:\d+)?)?/")
-  let codeDisplay = %re("/(^ {2,}[0-9]+)/")
+  let codeDisplay = %re("/(^ {2,}[0-9]+)|(^ {5,})/")
   let message = %re(`/(^ {2,})|(^\w)/`)
 
   let getFirstFromMatch = (input, regex) =>
