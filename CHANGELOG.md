@@ -1,3 +1,10 @@
+## [1.3.5](https://github.com/believer/coc-rescript/compare/v1.3.4...v1.3.5) (2020-10-07)
+
+
+### Bug Fixes
+
+* handle multiline code display ([0d4fe58](https://github.com/believer/coc-rescript/commit/0d4fe58824b7be331194cb136903644664dfe5fe))
+
 ## [1.3.4](https://github.com/believer/coc-rescript/compare/v1.3.3...v1.3.4) (2020-10-05)
 
 
