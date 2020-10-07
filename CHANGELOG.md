@@ -1,3 +1,10 @@
+## [1.3.6](https://github.com/believer/coc-rescript/compare/v1.3.5...v1.3.6) (2020-10-07)
+
+
+### Bug Fixes
+
+* handle errors that break slice ([618eec8](https://github.com/believer/coc-rescript/commit/618eec85b9835b6d97db5b84d822c5afe344f25b))
+
 ## [1.3.5](https://github.com/believer/coc-rescript/compare/v1.3.4...v1.3.5) (2020-10-07)
 
 
