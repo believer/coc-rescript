@@ -5,6 +5,8 @@
 
 [coc.nvim](https://github.com/neoclide/coc.nvim) extension for [ReScript](http://rescript-lang.org/).
 
+## Use the official plugin at [vim-rescript](https://github.com/rescript-lang/vim-rescript) instead.
+
 The server is a rewrite of the [VS Code server](https://github.com/rescript-lang/rescript-vscode/) in ReScript. 
 
 ## Features
